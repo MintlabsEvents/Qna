@@ -75,6 +75,7 @@ export default function Home() {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [started, setStarted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   // Select 10 random questions when game starts
   const startGame = useCallback(() => {
     const shuffled = [...questionsPool].sort(() => 0.5 - Math.random());
@@ -297,11 +298,24 @@ if (!gameStarted) {
       </div>
     );
   }
-
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true));
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false));
+    }
+  }
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
   return (
     <div style={styles.container}>
+     <button
+        onClick={toggleFullScreen}
+        style={styles.fullscreenButton}
+        title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+      >
+        {isFullscreen ? "⤢" : "⤢"}
+      </button>
       <div style={styles.quizContainer}>
         <div style={styles.header}>
           <div style={styles.questionCounter}>
@@ -630,4 +644,15 @@ const styles = {
   questionCounter: {
     fontWeight: '600',
   },
+  fullscreenButton: {
+      position: "fixed",
+      top: "20px",
+      right: "20px",
+      background: "rgba(0,0,0,0.4)",
+      borderRadius: "8px",
+      color: "white",
+      border: "none",
+      padding: "8px 12px",
+      cursor: "pointer",
+    }
 }; 
