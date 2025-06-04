@@ -269,6 +269,13 @@ if (!gameStarted) {
       />
       {/* <p style={styles.clickToStart} onClick={startGame}>Let's Play</p> */}
       <img style={styles.clickToStart}   onClick={startGame} src={Start} loading="lazy" />
+      <button
+        onClick={toggleFullScreen}
+        style={styles.fullscreenButton}
+        title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+      >
+        {isFullscreen ? "⤢" : "⤢"}
+      </button>
     </div>
   );
 }
@@ -309,13 +316,6 @@ if (!gameStarted) {
 
   return (
     <div style={styles.container}>
-     <button
-        onClick={toggleFullScreen}
-        style={styles.fullscreenButton}
-        title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-      >
-        {isFullscreen ? "⤢" : "⤢"}
-      </button>
       <div style={styles.quizContainer}>
         <div style={styles.header}>
           <div style={styles.questionCounter}>
@@ -654,5 +654,6 @@ const styles = {
       border: "none",
       padding: "8px 12px",
       cursor: "pointer",
+      zIndex:'10',
     }
 }; 
